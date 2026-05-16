@@ -244,7 +244,7 @@
       gap: 0.6rem;
     }
 
-    .stat-item {
+    .stats-item, .stat-item {
       background: var(--card);
       border: 1px solid var(--border);
       border-radius: 10px;
@@ -522,7 +522,6 @@
 </head>
 <body>
 
-  <!-- HEADER -->
   <header>
     <div class="header-inner">
       <div class="logo">
@@ -536,13 +535,11 @@
     </div>
   </header>
 
-  <!-- HERO -->
   <div class="hero">
     <h1>دور على <span>قطعتك</span><br/>ما تدورش على المحلات</h1>
     <p>رادار ليبيا يربطك بالمحل مباشرة عبر واتساب</p>
   </div>
 
-  <!-- SEARCH -->
   <div class="search-box">
     <div class="search-card">
       <div class="search-input-wrap">
@@ -585,7 +582,6 @@
     </div>
   </div>
 
-  <!-- STATS -->
   <div class="stats" id="statsSection">
     <div class="stat-item">
       <div class="stat-num" id="statParts">—</div>
@@ -601,7 +597,6 @@
     </div>
   </div>
 
-  <!-- RESULTS -->
   <div class="results-section">
     <div class="results-header">
       <span class="results-title">القطع المتاحة</span>
@@ -615,7 +610,6 @@
     </div>
   </div>
 
-  <!-- FOOTER -->
   <footer>
     <div class="footer-inner">
       <div class="footer-logo">🎯 رادار ليبيا</div>
@@ -631,12 +625,11 @@
     </div>
   </footer>
 
-  <!-- SUPABASE + LOGIC -->
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script>
     // ===== CONFIG =====
     const SUPABASE_URL = 'https://gtwmawzcmhjahyekpkiu.supabase.co';
-    const SUPABASE_KEY = 'ضع_هنا_مفتاح_anon_الجديد';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0d21hd3pjbWhqYWh5ZWtwa2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDczNDUzODEsImV4cCI6MjA2MjkyMTM4MX0.0Rly0vN9bYvP5w5gTz3S6R7EwS9o8D_48K5T7T6k1Xk';
 
     const { createClient } = supabase;
     const db = createClient(SUPABASE_URL, SUPABASE_KEY);
@@ -780,4 +773,4 @@
     loadAll();
   </script>
 </body>
-</html>
+      </html>
