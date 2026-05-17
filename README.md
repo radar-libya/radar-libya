@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>رادار ليبيا — قطع الغيار</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <style>
+    :root { --primary: #0a1628; --accent: #f97316; --accent2: #3b82f6; --surface: #111827; --card: #1a2540; --border: #1e3a5f; --text: #f1f5f9; --text-muted: #94a3b8; --green: #22c55e; --orange: #f97316; --radius: 14px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Cairo', sans-serif; background: var(--primary); color: var(--text); min-height: 100vh; direction: rtl; }
+    header { background: linear-gradient(135deg, #0a1628 0%, #0f2347 50%, #0a1628 100%); padding: 0 1rem; position: sticky; top: 0; z-index: 100; border-bottom: 1px solid var(--border); box-shadow: 0 4px 24px rgba(0,0,0,0.4); }
+    .header-inner { max-width: 700px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; padding: 0.9rem 0; }
+    .logo { display: flex; align-items: center; gap: 0.5rem; }
+    .logo-icon { width: 38px; height: 38px; background: linear-gradient(135deg, var(--accent), #ea580c); border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; box-shadow: 0 0 16px rgba(249,115,22,0.4); }
+    .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+    .logo-main { font-size: 1.1rem; font-weight: 900; color: var(--text); }
+    .logo-sub { font-size: 0.65rem; color: var(--accent); font-weight: 600; }
+    .header-badge { background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.3); color: var(--accent); padding: 0.3rem 0.8rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; }
+    .hero { background: linear-gradient(180deg, #0f2347 0%, var(--primary) 100%); padding: 2rem 1rem 1.5rem; text-align: center; }
+    .hero h1 { font-size: 1.6rem; font-weight: 900; line-height: 1.3; margin-bottom: 0.5rem; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { color: var(--text-muted); font-size: 0.85rem; }
+    .search-box { max-width: 700px; margin: 0 auto; padding: 1rem; }
+    .search-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1.2rem; display: flex; flex-direction: column; gap: 0.8rem; box-shadow: 0 8px 32px rgba(0,0,0,0.3); }
+    .search-input-wrap { position: relative; }
+    .search-input-wrap span { position: absolute; right: 0.9rem; top: 50%; transform: translateY(-50%); font-size: 1rem; pointer-events: none; }
+    input[type="text"] { width: 100%; background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.75rem 2.5rem 0.75rem 0.9rem; color: var(--text); font-family: 'Cairo', sans-serif; font-size: 0.9rem; outline: none; transition: border-color 0.2s; }
+    input[type="text"]:focus { border-color: var(--accent); }
+    input[type="text"]::placeholder { color: var(--text-muted); }
+    .filters-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 0.6rem; }
+    select { width: 100%; background: var(--surface); border: 1.5px solid var(--border); border-radius: 10px; padding: 0.7rem 0.6rem; color: var(--text); font-family: 'Cairo', sans-serif; font-size: 0.8rem; outline: none; cursor: pointer; appearance: none; text-align: center; }
+    select:focus { border-color: var(--accent); }
+    .btn-search { width: 100%; background: linear-gradient(135deg, var(--accent), #ea580c); color: white; border: none; border-radius: 10px; padding: 0.85rem; font-family: 'Cairo', sans-serif; font-size: 1rem; font-weight: 700; cursor: pointer; box-shadow: 0 4px 16px rgba(249,115,22,0.3); }
+    .stats { max-width: 700px; margin: 0 auto; padding: 0 1rem 1rem; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6rem; }
+    .stat-item { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 0.8rem 0.5rem; text-align: center; }
+    .stat-num { font-size: 1.4rem; font-weight: 900; color: var(--accent); line-height: 1; }
+    .stat-label { font-size: 0.65rem; color: var(--text-muted); margin-top: 0.2rem; }
+    .results-section { max-width: 700px; margin: 0 auto; padding: 0 1rem 2rem; }
+    .results-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 1rem; }
+    .results-title { font-size: 0.95rem; font-weight: 700; }
+    .results-count { background: rgba(59,130,246,0.15); border: 1px solid rgba(59,130,246,0.3); color: var(--accent2); padding: 0.2rem 0.6rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; }
+    .parts-grid { display: flex; flex-direction: column; gap: 0.8rem; }
+    .part-card { background: var(--card); border: 1px solid var(--border); border-radius: var(--radius); padding: 1rem; display: flex; flex-direction: column; gap: 0.7rem; animation: fadeIn 0.3s ease; }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+    .card-top { display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
+    .card-title-group { display: flex; align-items: center; gap: 0.5rem; flex: 1; }
+    .card-emoji { font-size: 1.5rem; line-height: 1; flex-shrink: 0; }
+    .card-name { font-size: 1rem; font-weight: 700; color: var(--text); line-height: 1.3; }
+    .card-model { font-size: 0.72rem; color: var(--text-muted); margin-top: 0.1rem; }
+    .badge-condition { display: flex; align-items: center; gap: 0.3rem; padding: 0.3rem 0.7rem; border-radius: 20px; font-size: 0.7rem; font-weight: 700; flex-shrink: 0; }
+    .badge-new { background: rgba(34,197,94,0.15); border: 1px solid rgba(34,197,94,0.3); color: var(--green); }
+    .badge-used { background: rgba(249,115,22,0.15); border: 1px solid rgba(249,115,22,0.3); color: var(--orange); }
+    .card-meta { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+    .meta-item { display: flex; align-items: center; gap: 0.3rem; font-size: 0.75rem; color: var(--text-muted); }
+    .card-bottom { display: flex; align-items: center; justify-content: space-between; padding-top: 0.7rem; border-top: 1px solid var(--border); }
+    .price-text { font-size: 0.85rem; font-weight: 700; color: var(--accent); }
+    .btn-whatsapp { display: flex; align-items: center; gap: 0.4rem; background: #25d366; color: white; border: none; border-radius: 8px; padding: 0.55rem 1rem; font-family: 'Cairo', sans-serif; font-size: 0.8rem; font-weight: 700; cursor: pointer; text-decoration: none; box-shadow: 0 2px 8px rgba(37,211,102,0.3); }
+    .empty-state { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+    .empty-state .empty-icon { font-size: 3rem; margin-bottom: 1rem; opacity: 0.5; }
+    .empty-state p { font-size: 1rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text); }
+    .loading { text-align: center; padding: 3rem 1rem; color: var(--text-muted); }
+    .spinner { width: 36px; height: 36px; border: 3px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.8s linear infinite; margin: 0 auto 1rem; }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    footer { background: var(--surface); border-top: 1px solid var(--border); padding: 1.5rem 1rem; text-align: center; }
+    .footer-inner { max-width: 700px; margin: 0 auto; }
+    .footer-logo { font-size: 1rem; font-weight: 900; color: var(--accent); margin-bottom: 0.5rem; }
+    .footer-disclaimer { font-size: 0.68rem; color: var(--text-muted); line-height: 1.6; max-width: 500px; margin: 0 auto; }
+    .footer-trademark { font-size: 0.62rem; color: #475569; margin-top: 0.5rem; }
+    @media (max-width: 400px) { .filters-row { grid-template-columns: 1fr 1fr; } .hero h1 { font-size: 1.3rem; } }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-inner">
+      <div class="logo">
+        <div class="logo-icon">🎯</div>
+        <div class="logo-text">
+          <span class="logo-main">رادار ليبيا</span>
+          <span class="logo-sub">قطع الغيار</span>
+        </div>
+      </div>
+      <div class="header-badge">طرابلس • بنغازي • مصراتة</div>
+    </div>
+  </header>
+  <div class="hero">
+    <h1>دور على <span>قطعتك</span><br/>ما تدورش على المحلات</h1>
+    <p>رادار ليبيا يربطك بالمحل مباشرة عبر واتساب</p>
+  </div>
+  <div class="search-box">
+    <div class="search-card">
+      <div class="search-input-wrap">
+        <span>🔍</span>
+        <input type="text" id="searchInput" placeholder="مثال: فلتر زيت، تيل أمام، ردياتير..." />
+      </div>
+      <div class="filters-row">
+        <select id="brandFilter">
+          <option value="">كل الماركات</option>
+          <option>تويوتا</option><option>هيونداي</option><option>نيسان</option>
+          <option>كيا</option><option>ميتسوبيشي</option><option>فورد</option>
+          <option>شيفروليه</option><option>جيب</option><option>مرسيدس</option>
+          <option>BMW</option><option>فولكس واجن</option><option>فيات</option>
+          <option>جيلي</option><option>شانجان</option><option>MG</option>
+          <option>متعددة الماركات</option>
+        </select>
+        <select id="cityFilter">
+          <option value="">كل المدن</option>
+          <option>طرابلس</option><option>بنغازي</option><option>مصراتة</option>
+        </select>
+        <select id="conditionFilter">
+          <option value="">الكل</option>
+          <option value="جديد">🟢 جديد</option>
+          <option value="مستعمل">🟠 مستعمل</option>
+        </select>
+      </div>
+      <button class="btn-search" onclick="searchParts()">🔍 ابحث الآن</button>
+    </div>
+  </div>
+  <div class="stats">
+    <div class="stat-item"><div class="stat-num" id="statParts">—</div><div class="stat-label">قطعة متاحة</div></div>
+    <div class="stat-item"><div class="stat-num" id="statShops">—</div><div class="stat-label">محل مسجل</div></div>
+    <div class="stat-item"><div class="stat-num">3</div><div class="stat-label">مدن ليبية</div></div>
+  </div>
+  <div class="results-section">
+    <div class="results-header">
+      <span class="results-title">القطع المتاحة</span>
+      <span class="results-count" id="resultsCount">جاري التحميل...</span>
+    </div>
+    <div class="parts-grid" id="partsGrid">
+      <div class="loading"><div class="spinner"></div><p>جاري جلب القطع...</p></div>
+    </div>
+  </div>
+  <footer>
+    <div class="footer-inner">
+      <div class="footer-logo">🎯 رادار ليبيا</div>
+      <div class="footer-disclaimer">رادار ليبيا منصة وسيط معلومات فقط لتسهيل الوصول بين الزبون والمحل، ولا تتحمل مسؤولية البيع أو الشراء أو توفر القطع.</div>
+      <div class="footer-trademark">جميع العلامات التجارية المذكورة مملوكة لأصحابها، ويتم استخدامها لأغراض الوصف والفهرسة فقط.</div>
+    </div>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <script>
+    const SUPABASE_URL = 'https://gtwmawzcmhjahyekpkiu.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0d21hd3pjbWhqYWh5ZWtwa2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzg5NjA4NDcsImV4cCI6MjA5NDUzNjg0N30.5LhutQV8i8VkEXpPdWKpyI_I5CYDY3DNRQQ9eeE54dM';
+    const { createClient } = supabase;
+    const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    async function loadAll() { await loadStats(); await searchParts(); }
+
+    async function loadStats() {
+      try {
+        const { count: p } = await db.from('parts').select('*', { count: 'exact', head: true }).eq('is_active', true);
+        const { count: s } = await db.from('shops').select('*', { count: 'exact', head: true }).eq('is_active', true);
+        document.getElementById('statParts').textContent = p || 0;
+        document.getElementById('statShops').textContent = s || 0;
+      } catch(e) { console.error(e); }
+    }
+
+    async function searchParts() {
+      const grid = document.getElementById('partsGrid');
+      const countEl = document.getElementById('resultsCount');
+      grid.innerHTML = '<div class="loading"><div class="spinner"></div><p>جاري البحث...</p></div>';
+      const searchText = document.getElementById('searchInput').value.trim();
+      const brand = document.getElementById('brandFilter').value;
+      const city = document.getElementById('cityFilter').value;
+      const condition = document.getElementById('conditionFilter').value;
+      try {
+        let query = db.from('parts').select('*').eq('is_active', true).order('created_at', { ascending: false });
+        if (brand) query = query.eq('brand', brand);
+        if (city) query = query.eq('city', city);
+        if (condition) query = query.eq('condition', condition);
+        if (searchText) query = query.ilike('name', `%${searchText}%`);
+        const { data, error } = await query;
+        if (error) throw error;
+        renderParts(data || []);
+        countEl.textContent = `${(data||[]).length} نتيجة`;
+      } catch(e) {
+        console.error(e);
+        grid.innerHTML = '<div class="empty-state"><div class="empty-icon">⚠️</div><p>في مشكلة في الاتصال</p><small>تحقق من الإنترنت وحاول مرة ثانية</small></div>';
+        countEl.textContent = 'خطأ';
+      }
+    }
+
+    function renderParts(parts) {
+      const grid = document.getElementById('partsGrid');
+      if (!parts.length) {
+        grid.innerHTML = '<div class="empty-state"><div class="empty-icon">🔍</div><p>ما لقيناش نتائج</p><small>جرب تغير الفلاتر أو ابحث بكلمة ثانية</small></div>';
+        return;
+      }
+      grid.innerHTML = parts.map(part => `
+        <div class="part-card">
+          <div class="card-top">
+            <div class="card-title-group">
+              <div class="card-emoji">${part.emoji || '🔧'}</div>
+              <div>
+                <div class="card-name">${part.name}</div>
+                <div class="card-model">${part.brand}${part.model ? ' — ' + part.model : ''}</div>
+              </div>
+            </div>
+            <div class="badge-condition ${part.condition === 'جديد' ? 'badge-new' : 'badge-used'}">
+              ${part.condition === 'جديد' ? '🟢' : '🟠'} ${part.condition}
+            </div>
+          </div>
+          <div class="card-meta">
+            <div class="meta-item"><span>📍</span><span>${part.city}</span></div>
+            <div class="meta-item"><span>🏪</span><span>${part.contact_name || '—'}</span></div>
+            ${part.notes ? `<div class="meta-item"><span>📝</span><span>${part.notes}</span></div>` : ''}
+          </div>
+          <div class="card-bottom">
+            <div class="price-text">💰 ${part.price_text || 'السعر عند التواصل'}</div>
+            <a class="btn-whatsapp" href="https://wa.me/${part.whatsapp}?text=${encodeURIComponent('السلام عليكم، شفت إعلان ' + part.name + ' على رادار ليبيا، هل لا زال متوفر؟')}" target="_blank">💬 واتساب</a>
+          </div>
+        </div>`).join('');
+    }
+
+    document.getElementById('searchInput').addEventListener('keypress', e => { if(e.key==='Enter') searchParts(); });
+    ['brandFilter','cityFilter','conditionFilter'].forEach(id => document.getElementById(id).addEventListener('change', searchParts));
+    loadAll();
+  </script>
+</body>
+</html>
