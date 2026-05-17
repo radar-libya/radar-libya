@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>رادار ليبيا - قطع الغيار</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet" />
     <style>
         :root {
             --primary: #0a1628;
@@ -28,283 +28,352 @@
             background-color: var(--primary);
             color: var(--text);
             min-height: 100vh;
+            padding: 20px;
             display: flex;
             flex-direction: column;
+            align-items: center;
         }
 
         header {
-            background-color: rgba(17, 24, 39, 0.8);
-            backdrop-filter: blur(8px);
-            padding: 1.5rem;
             text-align: center;
-            border-bottom: 1px solid var(--border);
-            position: sticky;
-            top: 0;
-            z-index: 50;
+            margin-bottom: 30px;
+            margin-top: 10px;
         }
 
-        header h1 {
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+
+        .logo span {
             color: var(--accent);
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
         }
 
         header p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 1.1rem;
         }
 
-        main {
-            flex: 1;
-            padding: 1.5rem;
-            max-width: 800px;
+        .search-container {
             width: 100%;
-            margin: 0 auto;
+            max-width: 600px;
+            margin-bottom: 30px;
+            position: relative;
         }
 
-        .search-box {
+        .search-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+            background-color: var(--card);
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            padding: 4px 14px;
+            transition: all 0.3s ease;
+        }
+
+        .search-wrapper:focus-within {
+            border-color: var(--accent);
+            box-shadow: 0 0 15px rgba(249, 115, 22, 0.15);
+        }
+
+        .search-icon {
+            color: var(--text-muted);
+            font-size: 1.3rem;
+            margin-left: 10px;
+        }
+
+        .search-input {
+            width: 100%;
+            background: none;
+            border: none;
+            padding: 12px 6px;
+            color: var(--text);
+            font-size: 1.1rem;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: var(--text-muted);
+        }
+
+        .results-container {
+            width: 100%;
+            max-width: 800px;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+        }
+
+        @media (min-width: 680px) {
+            .results-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        .card {
             background-color: var(--card);
             border: 1px solid var(--border);
-            padding: 1rem;
-            border-radius: 12px;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
-        }
-
-        .search-box input {
-            width: 100%;
-            padding: 0.8rem;
-            border-radius: 8px;
-            border: 1px solid var(--border);
-            background-color: var(--surface);
-            color: var(--text);
-            font-size: 1rem;
-            outline: none;
-            text-align: right;
-        }
-
-        .search-box input:focus {
-            border-color: var(--accent);
-        }
-
-        .status {
-            text-align: center;
-            color: var(--text-muted);
-            margin: 1rem 0;
-            font-size: 0.9rem;
-        }
-
-        .parts-container {
+            border-radius: 16px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 1rem;
+            gap: 12px;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.2s ease, border-color 0.2s ease;
         }
 
-        .part-card {
-            background-color: var(--card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 1.25rem;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
-            transition: transform 0.2s;
+        .card:hover {
+            transform: translateY(-2px);
+            border-color: #4b5563;
         }
 
-        .part-card:active {
-            transform: scale(0.98);
-        }
-
-        .part-header {
+        .card-header {
             display: flex;
             justify-content: space-between;
             align-items: flex-start;
-            margin-bottom: 0.75rem;
         }
 
-        .part-title {
-            font-size: 1.2rem;
+        .part-name {
+            font-size: 1.3rem;
             font-weight: 700;
-            color: #fff;
+            color: var(--text);
         }
 
-        .part-badge {
-            background-color: var(--surface);
-            border: 1px solid var(--border);
-            padding: 0.25rem 0.6rem;
-            border-radius: 20px;
-            font-size: 0.75rem;
+        .badge {
+            background-color: rgba(249, 115, 22, 0.1);
             color: var(--accent);
-        }
-
-        .part-details {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 0.5rem;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            margin-bottom: 1rem;
-            background-color: rgba(0,0,0,0.1);
-            padding: 0.75rem;
+            padding: 4px 10px;
             border-radius: 8px;
+            font-size: 0.85rem;
+            font-weight: 500;
         }
 
-        .detail-item span {
+        .badge.used {
+            background-color: rgba(59, 130, 246, 0.1);
+            color: var(--accent2);
+        }
+
+        .info-row {
+            display: flex;
+            gap: 8px;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            align-items: center;
+        }
+
+        .info-label {
+            color: var(--text-muted);
+        }
+
+        .info-value {
             color: var(--text);
             font-weight: 500;
         }
 
-        .part-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-top: 1px solid var(--border);
-            padding-top: 0.75rem;
-        }
-
-        .part-price {
-            font-size: 1.1rem;
+        .price-tag {
+            font-size: 1.4rem;
             font-weight: 700;
-            color: #22c55e;
+            color: var(--accent);
+            margin-top: 6px;
         }
 
-        .btn-whatsapp {
+        .contact-btn {
             background-color: #25d366;
-            color: white;
+            color: #fff;
             text-decoration: none;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 500;
-            display: inline-flex;
+            display: flex;
             align-items: center;
-            gap: 0.5rem;
+            justify-content: center;
+            gap: 8px;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 700;
+            margin-top: auto;
+            transition: background-color 0.2s;
         }
 
-        .no-results {
+        .contact-btn:hover {
+            background-color: #20ba5a;
+        }
+
+        .status-message {
             text-align: center;
-            padding: 3rem 1rem;
+            padding: 40px;
             color: var(--text-muted);
+            font-size: 1.1rem;
+            grid-column: 1 / -1;
+        }
+
+        .error-message {
+            color: #ef4444;
+            background-color: rgba(239, 68, 68, 0.1);
+            border: 1px solid rgba(239, 68, 68, 0.2);
+            border-radius: 12px;
+            padding: 16px;
+            text-align: center;
+            width: 100%;
+            max-width: 600px;
+            margin-bottom: 20px;
+        }
+
+        .loading-spinner {
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            border: 3px solid rgba(255,255,255,0.1);
+            border-radius: 50%;
+            border-top-color: var(--accent);
+            animation: spin 1s ease-in-out infinite;
+            margin-bottom: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
         }
     </style>
 </head>
 <body>
 
     <header>
-        <h1>رادار ليبيا 📡</h1>
+        <div class="logo">📡 رادار ليبيا</div>
         <p>البحث الذكي عن قطع الغيار في كل المدن الليبية</p>
     </header>
 
-    <main>
-        <div class="search-box">
-            <input type="text" id="searchInput" placeholder="ابحث عن قطعة، سيارة، أو مدينة..." />
+    <div class="search-container">
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="searchInput" class="search-input" placeholder="ابحث عن قطعة، سيارة، أو مدينة..." disabled />
         </div>
+    </div>
 
-        <div id="status" class="status">جاري الاتصال بالرادار...</div>
+    <div id="errorOverlay"></div>
 
-        <div id="partsContainer" class="parts-container"></div>
-    </main>
+    <div class="results-container" id="resultsContainer">
+        <div class="status-message">
+            <div class="loading-spinner"></div>
+            <div>جاري تشغيل الرادار والاتصال بقاعدة البيانات...</div>
+        </div>
+    </div>
 
     <script>
-        // إعدادات اتصال سوبابيس المباشرة بالمفتاح الجديد
+        // إعدادات الاتصال بقاعدة البيانات المحدثة
         const SUPABASE_URL = 'https://gtwmawzcmhjahyekpkiu.supabase.co';
         const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0d21hd3pjbWhqYWh5ZWtwa2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDczNDUzODEsImV4cCI6MjA2MjkyMTM4MX0.0Rly0vN9bYvP5w5gTz3S6R7EwS9o8D_48K5T7T6k1Xk';
 
         let allParts = [];
 
-        async function fetchParts() {
-            const statusDiv = document.getElementById('status');
+        async function fetchPartsData() {
+            const resultsContainer = document.getElementById('resultsContainer');
+            const errorOverlay = document.getElementById('errorOverlay');
+            const searchInput = document.getElementById('searchInput');
+
             try {
-                // جلب البيانات مباشرة وبدون قيود أمان
-                const response = await fetch(`${SUPABASE_URL}/rest/v1/parts?select=*`, {
+                // جلب البيانات مع ربط جدول المحلات تلقائياً
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/parts?select=*,shops(*)`, {
                     headers: {
                         'apikey': SUPABASE_KEY,
                         'Authorization': `Bearer ${SUPABASE_KEY}`
                     }
                 });
 
-                if (!response.ok) throw new Error('فشل جلب البيانات من السيرفر');
+                if (!response.ok) {
+                    throw new Error('فشل جلب البيانات من السيرفر');
+                }
 
                 allParts = await response.json();
-                statusDiv.innerText = `تم تحديث الرادار: متوفر (${allParts.length}) قطعة معروضة حالياً`;
-                renderParts(allParts);
+                
+                // تفعيل خانة البحث وعرض البيانات
+                searchInput.disabled = false;
+                displayParts(allParts);
 
             } catch (error) {
                 console.error(error);
-                statusDiv.innerHTML = '<span style="color: #ef4444;">عذراً، فشل الرادار في الاتصال بقاعدة البيانات.</span>';
+                errorOverlay.innerHTML = `
+                    <div class="error-message">
+                        عذراً، فشل الرادار في الاتصال بقاعدة البيانات. تأكد من تفعيل الصلاحيات.
+                    </div>
+                `;
+                resultsContainer.innerHTML = '';
             }
         }
 
-        function renderParts(parts) {
-            const container = document.getElementById('partsContainer');
+        function displayParts(parts) {
+            const container = document.getElementById('resultsContainer');
             container.innerHTML = '';
 
             if (parts.length === 0) {
-                container.innerHTML = '<div class="no-results">لم يتم العثور على قطع تطابق بحثك الحلي.</div>';
+                container.innerHTML = '<div class="status-message">لم يتم العثور على قطع تطابق بحثك.</div>';
                 return;
             }
 
             parts.forEach(part => {
+                const shopName = part.shops ? part.shops.name : 'محل غير معروف';
+                const conditionClass = part.condition === 'جديد' ? '' : 'used';
+                const whatsappNumber = part.whatsapp || (part.shops ? part.shops.whatsapp : '');
+                
                 const card = document.createElement('div');
-                card.className = 'part-card';
-
-                const emoji = part.emoji || '📦';
-                const price = part.price_text || 'اتصل للسعر';
-                const brand = part.brand || 'غير محدد';
-                const model = part.model || 'كل الموديلات';
-                const condition = part.condition || 'غير محدد';
-                const city = part.city || 'كل المدن';
-
-                // تجهيز رابط الواتساب المباشر
-                let waLink = '#';
-                if (part.whatsapp) {
-                    let num = part.whatsapp.replace(/\D/g, '');
-                    if (!num.startsWith('218')) num = '218' + num;
-                    const text = encodeURIComponent(`السلام عليكم، استفسار بخصوص قطعة: ${part.name} للسيارة ${brand} ${model} المعروضة في رادار ليبيا.`);
-                    waLink = `https://wa.me/${num}?text=${text}`;
-                }
-
+                card.className = 'card';
                 card.innerHTML = `
-                    <div class="part-header">
-                        <div class="part-title">${emoji} ${part.name}</div>
-                        <div class="part-badge">${condition}</div>
+                    <div class="card-header">
+                        <div class="part-name">${part.name}</div>
+                        <span class="badge ${conditionClass}">${part.condition}</span>
                     </div>
-                    <div class="part-details">
-                        <div class="detail-item">السيارة: <span>${brand}</span></div>
-                        <div class="detail-item">الموديل: <span>${model}</span></div>
-                        <div class="detail-item">المدينة: <span>📍 ${city}</span></div>
-                        <div class="detail-item">ملاحظات: <span>${part.notes || 'لا يوجد'}</span></div>
+                    <div class="info-row">
+                        <span class="info-label">السيارة:</span>
+                        <span class="info-value">${part.brand} ${part.model}</span>
                     </div>
-                    <div class="part-footer">
-                        <div class="part-price">${price}</div>
-                        <a href="${waLink}" target="_blank" class="btn-whatsapp">
-                            💬 تواصل واتساب
+                    <div class="info-row">
+                        <span class="info-label">المحل:</span>
+                        <span class="info-value">${shopName}</span>
+                    </div>
+                    <div class="info-row">
+                        <span class="info-label">المدينة:</span>
+                        <span class="info-value">📍 ${part.city}</span>
+                    </div>
+                    <div class="price-tag">${part.price_text}</div>
+                    ${whatsappNumber ? `
+                        <a href="https://wa.me/${whatsappNumber}" target="_blank" class="contact-btn">
+                            💬 تواصل عبر الواتساب
                         </a>
-                    </div>
+                    ` : ''}
                 `;
                 container.appendChild(card);
             });
         }
 
-        // تفعيل خانة البحث الفوري الذكي
+        // تفعيل محرك البحث الذكي
         document.getElementById('searchInput').addEventListener('input', (e) => {
             const query = e.target.value.toLowerCase().trim();
+            
             if (!query) {
-                renderParts(allParts);
+                displayParts(allParts);
                 return;
             }
 
             const filtered = allParts.filter(part => {
+                const shopName = part.shops ? part.shops.name.toLowerCase() : '';
                 return (
-                    (part.name && part.name.toLowerCase().includes(query)) ||
-                    (part.brand && part.brand.toLowerCase().includes(query)) ||
-                    (part.model && part.model.toLowerCase().includes(query)) ||
-                    (part.city && part.city.toLowerCase().includes(query))
+                    part.name.toLowerCase().includes(query) ||
+                    part.brand.toLowerCase().includes(query) ||
+                    part.model.toLowerCase().includes(query) ||
+                    part.city.toLowerCase().includes(query) ||
+                    shopName.includes(query)
                 );
             });
-            renderParts(filtered);
+
+            displayParts(filtered);
         });
 
-        // تشغيل الجلب التلقائي فور فتح الصفحة
-        window.addEventListener('DOMContentLoaded', fetchParts);
+        // البدء بتشغيل الدالة عند تحميل الصفحة
+        window.addEventListener('DOMContentLoaded', fetchPartsData);
     </script>
 </body>
 </html>
