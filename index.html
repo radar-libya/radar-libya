@@ -1,776 +1,310 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>رادار ليبيا — قطع الغيار</title>
-  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600;700;900&display=swap" rel="stylesheet" />
-  <style>
-    :root {
-      --primary: #0a1628;
-      --accent: #f97316;
-      --accent2: #3b82f6;
-      --surface: #111827;
-      --card: #1a2540;
-      --border: #1e3a5f;
-      --text: #f1f5f9;
-      --text-muted: #94a3b8;
-      --green: #22c55e;
-      --orange: #f97316;
-      --radius: 14px;
-    }
-
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-
-    body {
-      font-family: 'Cairo', sans-serif;
-      background: var(--primary);
-      color: var(--text);
-      min-height: 100vh;
-      direction: rtl;
-    }
-
-    /* ===== HEADER ===== */
-    header {
-      background: linear-gradient(135deg, #0a1628 0%, #0f2347 50%, #0a1628 100%);
-      padding: 0 1rem;
-      position: sticky;
-      top: 0;
-      z-index: 100;
-      border-bottom: 1px solid var(--border);
-      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
-    }
-
-    .header-inner {
-      max-width: 700px;
-      margin: 0 auto;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0.9rem 0;
-    }
-
-    .logo {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-    }
-
-    .logo-icon {
-      width: 38px;
-      height: 38px;
-      background: linear-gradient(135deg, var(--accent), #ea580c);
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 1.2rem;
-      box-shadow: 0 0 16px rgba(249,115,22,0.4);
-    }
-
-    .logo-text {
-      display: flex;
-      flex-direction: column;
-      line-height: 1.1;
-    }
-
-    .logo-main {
-      font-size: 1.1rem;
-      font-weight: 900;
-      color: var(--text);
-    }
-
-    .logo-sub {
-      font-size: 0.65rem;
-      color: var(--accent);
-      font-weight: 600;
-      letter-spacing: 0.05em;
-    }
-
-    .header-badge {
-      background: rgba(249,115,22,0.15);
-      border: 1px solid rgba(249,115,22,0.3);
-      color: var(--accent);
-      padding: 0.3rem 0.8rem;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-
-    /* ===== HERO ===== */
-    .hero {
-      background: linear-gradient(180deg, #0f2347 0%, var(--primary) 100%);
-      padding: 2rem 1rem 1.5rem;
-      text-align: center;
-      position: relative;
-      overflow: hidden;
-    }
-
-    .hero::before {
-      content: '';
-      position: absolute;
-      top: -50%;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 400px;
-      height: 400px;
-      background: radial-gradient(circle, rgba(249,115,22,0.08) 0%, transparent 70%);
-      pointer-events: none;
-    }
-
-    .hero h1 {
-      font-size: 1.6rem;
-      font-weight: 900;
-      line-height: 1.3;
-      margin-bottom: 0.5rem;
-      position: relative;
-    }
-
-    .hero h1 span {
-      color: var(--accent);
-    }
-
-    .hero p {
-      color: var(--text-muted);
-      font-size: 0.85rem;
-      position: relative;
-    }
-
-    /* ===== SEARCH BOX ===== */
-    .search-box {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 1rem;
-    }
-
-    .search-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1.2rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-
-    .search-input-wrap {
-      position: relative;
-    }
-
-    .search-input-wrap span {
-      position: absolute;
-      right: 0.9rem;
-      top: 50%;
-      transform: translateY(-50%);
-      font-size: 1rem;
-      pointer-events: none;
-    }
-
-    input[type="text"] {
-      width: 100%;
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 0.75rem 2.5rem 0.75rem 0.9rem;
-      color: var(--text);
-      font-family: 'Cairo', sans-serif;
-      font-size: 0.9rem;
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    input[type="text"]:focus {
-      border-color: var(--accent);
-    }
-
-    input[type="text"]::placeholder {
-      color: var(--text-muted);
-    }
-
-    .filters-row {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 0.6rem;
-    }
-
-    select {
-      width: 100%;
-      background: var(--surface);
-      border: 1.5px solid var(--border);
-      border-radius: 10px;
-      padding: 0.7rem 0.6rem;
-      color: var(--text);
-      font-family: 'Cairo', sans-serif;
-      font-size: 0.8rem;
-      outline: none;
-      cursor: pointer;
-      transition: border-color 0.2s;
-      appearance: none;
-      text-align: center;
-    }
-
-    select:focus { border-color: var(--accent); }
-
-    .btn-search {
-      width: 100%;
-      background: linear-gradient(135deg, var(--accent), #ea580c);
-      color: white;
-      border: none;
-      border-radius: 10px;
-      padding: 0.85rem;
-      font-family: 'Cairo', sans-serif;
-      font-size: 1rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: all 0.2s;
-      box-shadow: 0 4px 16px rgba(249,115,22,0.3);
-    }
-
-    .btn-search:hover {
-      transform: translateY(-1px);
-      box-shadow: 0 6px 20px rgba(249,115,22,0.4);
-    }
-
-    .btn-search:active { transform: translateY(0); }
-
-    /* ===== STATS ===== */
-    .stats {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 0 1rem 1rem;
-      display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 0.6rem;
-    }
-
-    .stats-item, .stat-item {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      padding: 0.8rem 0.5rem;
-      text-align: center;
-    }
-
-    .stat-num {
-      font-size: 1.4rem;
-      font-weight: 900;
-      color: var(--accent);
-      line-height: 1;
-    }
-
-    .stat-label {
-      font-size: 0.65rem;
-      color: var(--text-muted);
-      margin-top: 0.2rem;
-    }
-
-    /* ===== RESULTS SECTION ===== */
-    .results-section {
-      max-width: 700px;
-      margin: 0 auto;
-      padding: 0 1rem 2rem;
-    }
-
-    .results-header {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      margin-bottom: 1rem;
-    }
-
-    .results-title {
-      font-size: 0.95rem;
-      font-weight: 700;
-      color: var(--text);
-    }
-
-    .results-count {
-      background: rgba(59,130,246,0.15);
-      border: 1px solid rgba(59,130,246,0.3);
-      color: var(--accent2);
-      padding: 0.2rem 0.6rem;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 700;
-    }
-
-    /* ===== PART CARD ===== */
-    .parts-grid {
-      display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-    }
-
-    .part-card {
-      background: var(--card);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      padding: 1rem;
-      display: flex;
-      flex-direction: column;
-      gap: 0.7rem;
-      animation: fadeIn 0.3s ease;
-      transition: border-color 0.2s, transform 0.2s;
-    }
-
-    .part-card:hover {
-      border-color: rgba(249,115,22,0.4);
-      transform: translateY(-1px);
-    }
-
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(8px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .card-top {
-      display: flex;
-      align-items: flex-start;
-      justify-content: space-between;
-      gap: 0.5rem;
-    }
-
-    .card-title-group {
-      display: flex;
-      align-items: center;
-      gap: 0.5rem;
-      flex: 1;
-    }
-
-    .card-emoji {
-      font-size: 1.5rem;
-      line-height: 1;
-      flex-shrink: 0;
-    }
-
-    .card-name {
-      font-size: 1rem;
-      font-weight: 700;
-      color: var(--text);
-      line-height: 1.3;
-    }
-
-    .card-model {
-      font-size: 0.72rem;
-      color: var(--text-muted);
-      margin-top: 0.1rem;
-    }
-
-    .badge-condition {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      padding: 0.3rem 0.7rem;
-      border-radius: 20px;
-      font-size: 0.7rem;
-      font-weight: 700;
-      flex-shrink: 0;
-    }
-
-    .badge-new {
-      background: rgba(34,197,94,0.15);
-      border: 1px solid rgba(34,197,94,0.3);
-      color: var(--green);
-    }
-
-    .badge-used {
-      background: rgba(249,115,22,0.15);
-      border: 1px solid rgba(249,115,22,0.3);
-      color: var(--orange);
-    }
-
-    .card-meta {
-      display: flex;
-      align-items: center;
-      gap: 1rem;
-      flex-wrap: wrap;
-    }
-
-    .meta-item {
-      display: flex;
-      align-items: center;
-      gap: 0.3rem;
-      font-size: 0.75rem;
-      color: var(--text-muted);
-    }
-
-    .meta-item span:first-child { font-size: 0.85rem; }
-
-    .card-bottom {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding-top: 0.7rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .price-text {
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--accent);
-    }
-
-    .btn-whatsapp {
-      display: flex;
-      align-items: center;
-      gap: 0.4rem;
-      background: #25d366;
-      color: white;
-      border: none;
-      border-radius: 8px;
-      padding: 0.55rem 1rem;
-      font-family: 'Cairo', sans-serif;
-      font-size: 0.8rem;
-      font-weight: 700;
-      cursor: pointer;
-      text-decoration: none;
-      transition: all 0.2s;
-      box-shadow: 0 2px 8px rgba(37,211,102,0.3);
-    }
-
-    .btn-whatsapp:hover {
-      background: #20ba5a;
-      box-shadow: 0 4px 12px rgba(37,211,102,0.4);
-    }
-
-    /* ===== EMPTY STATE ===== */
-    .empty-state {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: var(--text-muted);
-    }
-
-    .empty-state .empty-icon {
-      font-size: 3rem;
-      margin-bottom: 1rem;
-      opacity: 0.5;
-    }
-
-    .empty-state p {
-      font-size: 1rem;
-      font-weight: 600;
-      margin-bottom: 0.3rem;
-      color: var(--text);
-    }
-
-    .empty-state small {
-      font-size: 0.8rem;
-    }
-
-    /* ===== LOADING ===== */
-    .loading {
-      text-align: center;
-      padding: 3rem 1rem;
-      color: var(--text-muted);
-    }
-
-    .spinner {
-      width: 36px;
-      height: 36px;
-      border: 3px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.8s linear infinite;
-      margin: 0 auto 1rem;
-    }
-
-    @keyframes spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* ===== FOOTER ===== */
-    footer {
-      background: var(--surface);
-      border-top: 1px solid var(--border);
-      padding: 1.5rem 1rem;
-      text-align: center;
-    }
-
-    .footer-inner {
-      max-width: 700px;
-      margin: 0 auto;
-    }
-
-    .footer-logo {
-      font-size: 1rem;
-      font-weight: 900;
-      color: var(--accent);
-      margin-bottom: 0.5rem;
-    }
-
-    .footer-disclaimer {
-      font-size: 0.68rem;
-      color: var(--text-muted);
-      line-height: 1.6;
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .footer-trademark {
-      font-size: 0.62rem;
-      color: #475569;
-      margin-top: 0.5rem;
-    }
-
-    /* ===== RESPONSIVE ===== */
-    @media (max-width: 400px) {
-      .filters-row { grid-template-columns: 1fr 1fr; }
-      .hero h1 { font-size: 1.3rem; }
-    }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>رادار ليبيا - قطع الغيار</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #0a1628;
+            --accent: #f97316;
+            --accent2: #3b82f6;
+            --surface: #111827;
+            --card: #1f2937;
+            --border: #374151;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Tajawal', sans-serif;
+        }
+
+        body {
+            background-color: var(--primary);
+            color: var(--text);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        header {
+            background-color: rgba(17, 24, 39, 0.8);
+            backdrop-filter: blur(8px);
+            padding: 1.5rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            position: sticky;
+            top: 0;
+            z-index: 50;
+        }
+
+        header h1 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        header p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        main {
+            flex: 1;
+            padding: 1.5rem;
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+        }
+
+        .search-box {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            padding: 1rem;
+            border-radius: 12px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0,0,0,0.3);
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 0.8rem;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            background-color: var(--surface);
+            color: var(--text);
+            font-size: 1rem;
+            outline: none;
+            text-align: right;
+        }
+
+        .search-box input:focus {
+            border-color: var(--accent);
+        }
+
+        .status {
+            text-align: center;
+            color: var(--text-muted);
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+
+        .parts-container {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .part-card {
+            background-color: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 1.25rem;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+            transition: transform 0.2s;
+        }
+
+        .part-card:active {
+            transform: scale(0.98);
+        }
+
+        .part-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 0.75rem;
+        }
+
+        .part-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .part-badge {
+            background-color: var(--surface);
+            border: 1px solid var(--border);
+            padding: 0.25rem 0.6rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            color: var(--accent);
+        }
+
+        .part-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.5rem;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin-bottom: 1rem;
+            background-color: rgba(0,0,0,0.1);
+            padding: 0.75rem;
+            border-radius: 8px;
+        }
+
+        .detail-item span {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .part-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-top: 1px solid var(--border);
+            padding-top: 0.75rem;
+        }
+
+        .part-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #22c55e;
+        }
+
+        .btn-whatsapp {
+            background-color: #25d366;
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 500;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .no-results {
+            text-align: center;
+            padding: 3rem 1rem;
+            color: var(--text-muted);
+        }
+    </style>
 </head>
 <body>
 
-  <header>
-    <div class="header-inner">
-      <div class="logo">
-        <div class="logo-icon">🎯</div>
-        <div class="logo-text">
-          <span class="logo-main">رادار ليبيا</span>
-          <span class="logo-sub">قطع الغيار</span>
+    <header>
+        <h1>رادار ليبيا 📡</h1>
+        <p>البحث الذكي عن قطع الغيار في كل المدن الليبية</p>
+    </header>
+
+    <main>
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="ابحث عن قطعة، سيارة، أو مدينة..." />
         </div>
-      </div>
-      <div class="header-badge">طرابلس • بنغازي • مصراتة</div>
-    </div>
-  </header>
 
-  <div class="hero">
-    <h1>دور على <span>قطعتك</span><br/>ما تدورش على المحلات</h1>
-    <p>رادار ليبيا يربطك بالمحل مباشرة عبر واتساب</p>
-  </div>
+        <div id="status" class="status">جاري الاتصال بالرادار...</div>
 
-  <div class="search-box">
-    <div class="search-card">
-      <div class="search-input-wrap">
-        <span>🔍</span>
-        <input type="text" id="searchInput" placeholder="مثال: فلتر زيت، تيل أمام، ردياتير..." />
-      </div>
-      <div class="filters-row">
-        <select id="brandFilter">
-          <option value="">كل الماركات</option>
-          <option>تويوتا</option>
-          <option>هيونداي</option>
-          <option>نيسان</option>
-          <option>كيا</option>
-          <option>ميتسوبيشي</option>
-          <option>فورد</option>
-          <option>شيفروليه</option>
-          <option>جيب</option>
-          <option>مرسيدس</option>
-          <option>BMW</option>
-          <option>فولكس واجن</option>
-          <option>فيات</option>
-          <option>جيلي</option>
-          <option>شانجان</option>
-          <option>MG</option>
-          <option>متعددة الماركات</option>
-        </select>
-        <select id="cityFilter">
-          <option value="">كل المدن</option>
-          <option>طرابلس</option>
-          <option>بنغازي</option>
-          <option>مصراتة</option>
-        </select>
-        <select id="conditionFilter">
-          <option value="">الكل</option>
-          <option value="جديد">🟢 جديد</option>
-          <option value="مستعمل">🟠 مستعمل</option>
-        </select>
-      </div>
-      <button class="btn-search" onclick="searchParts()">🔍 ابحث الآن</button>
-    </div>
-  </div>
+        <div id="partsContainer" class="parts-container"></div>
+    </main>
 
-  <div class="stats" id="statsSection">
-    <div class="stat-item">
-      <div class="stat-num" id="statParts">—</div>
-      <div class="stat-label">قطعة متاحة</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num" id="statShops">—</div>
-      <div class="stat-label">محل مسجل</div>
-    </div>
-    <div class="stat-item">
-      <div class="stat-num">3</div>
-      <div class="stat-label">مدن ليبية</div>
-    </div>
-  </div>
+    <script>
+        // إعدادات اتصال سوبابيس المباشرة بالمفتاح الجديد
+        const SUPABASE_URL = 'https://gtwmawzcmhjahyekpkiu.supabase.co';
+        const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0d21hd3pjbWhqYWh5ZWtwa2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDczNDUzODEsImV4cCI6MjA2MjkyMTM4MX0.0Rly0vN9bYvP5w5gTz3S6R7EwS9o8D_48K5T7T6k1Xk';
 
-  <div class="results-section">
-    <div class="results-header">
-      <span class="results-title">القطع المتاحة</span>
-      <span class="results-count" id="resultsCount">جاري التحميل...</span>
-    </div>
-    <div class="parts-grid" id="partsGrid">
-      <div class="loading">
-        <div class="spinner"></div>
-        <p>جاري جلب القطع...</p>
-      </div>
-    </div>
-  </div>
+        let allParts = [];
 
-  <footer>
-    <div class="footer-inner">
-      <div class="footer-logo">🎯 رادار ليبيا</div>
-      <div class="footer-disclaimer">
-        رادار ليبيا منصة وسيط معلومات فقط لتسهيل الوصول بين الزبون والمحل،
-        ولا تتحمل مسؤولية البيع أو الشراء أو توفر القطع.
-        الأسعار والتوفر يتغيران — تحقق مع المحل مباشرة.
-      </div>
-      <div class="footer-trademark">
-        جميع العلامات التجارية المذكورة مملوكة لأصحابها،
-        ويتم استخدامها لأغراض الوصف والفهرسة فقط.
-      </div>
-    </div>
-  </footer>
+        async function fetchParts() {
+            const statusDiv = document.getElementById('status');
+            try {
+                // جلب البيانات مباشرة وبدون قيود أمان
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/parts?select=*`, {
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                });
 
-  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-  <script>
-    // ===== CONFIG =====
-    const SUPABASE_URL = 'https://gtwmawzcmhjahyekpkiu.supabase.co';
-    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imd0d21hd3pjbWhqYWh5ZWtwa2l1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDczNDUzODEsImV4cCI6MjA2MjkyMTM4MX0.0Rly0vN9bYvP5w5gTz3S6R7EwS9o8D_48K5T7T6k1Xk';
+                if (!response.ok) throw new Error('فشل جلب البيانات من السيرفر');
 
-    const { createClient } = supabase;
-    const db = createClient(SUPABASE_URL, SUPABASE_KEY);
+                allParts = await response.json();
+                statusDiv.innerText = `تم تحديث الرادار: متوفر (${allParts.length}) قطعة معروضة حالياً`;
+                renderParts(allParts);
 
-    let allParts = [];
+            } catch (error) {
+                console.error(error);
+                statusDiv.innerHTML = '<span style="color: #ef4444;">عذراً، فشل الرادار في الاتصال بقاعدة البيانات.</span>';
+            }
+        }
 
-    // ===== LOAD ON START =====
-    async function loadAll() {
-      await loadStats();
-      await searchParts();
-    }
+        function renderParts(parts) {
+            const container = document.getElementById('partsContainer');
+            container.innerHTML = '';
 
-    // ===== STATS =====
-    async function loadStats() {
-      try {
-        const { count: partsCount } = await db
-          .from('parts')
-          .select('*', { count: 'exact', head: true })
-          .eq('is_active', true);
+            if (parts.length === 0) {
+                container.innerHTML = '<div class="no-results">لم يتم العثور على قطع تطابق بحثك الحلي.</div>';
+                return;
+            }
 
-        const { count: shopsCount } = await db
-          .from('shops')
-          .select('*', { count: 'exact', head: true })
-          .eq('is_active', true);
+            parts.forEach(part => {
+                const card = document.createElement('div');
+                card.className = 'part-card';
 
-        document.getElementById('statParts').textContent = partsCount || 0;
-        document.getElementById('statShops').textContent = shopsCount || 0;
-      } catch (e) {
-        console.error('خطأ في الإحصائيات:', e);
-      }
-    }
+                const emoji = part.emoji || '📦';
+                const price = part.price_text || 'اتصل للسعر';
+                const brand = part.brand || 'غير محدد';
+                const model = part.model || 'كل الموديلات';
+                const condition = part.condition || 'غير محدد';
+                const city = part.city || 'كل المدن';
 
-    // ===== SEARCH =====
-    async function searchParts() {
-      const grid = document.getElementById('partsGrid');
-      const countEl = document.getElementById('resultsCount');
+                // تجهيز رابط الواتساب المباشر
+                let waLink = '#';
+                if (part.whatsapp) {
+                    let num = part.whatsapp.replace(/\D/g, '');
+                    if (!num.startsWith('218')) num = '218' + num;
+                    const text = encodeURIComponent(`السلام عليكم، استفسار بخصوص قطعة: ${part.name} للسيارة ${brand} ${model} المعروضة في رادار ليبيا.`);
+                    waLink = `https://wa.me/${num}?text=${text}`;
+                }
 
-      grid.innerHTML = '<div class="loading"><div class="spinner"></div><p>جاري البحث...</p></div>';
+                card.innerHTML = `
+                    <div class="part-header">
+                        <div class="part-title">${emoji} ${part.name}</div>
+                        <div class="part-badge">${condition}</div>
+                    </div>
+                    <div class="part-details">
+                        <div class="detail-item">السيارة: <span>${brand}</span></div>
+                        <div class="detail-item">الموديل: <span>${model}</span></div>
+                        <div class="detail-item">المدينة: <span>📍 ${city}</span></div>
+                        <div class="detail-item">ملاحظات: <span>${part.notes || 'لا يوجد'}</span></div>
+                    </div>
+                    <div class="part-footer">
+                        <div class="part-price">${price}</div>
+                        <a href="${waLink}" target="_blank" class="btn-whatsapp">
+                            💬 تواصل واتساب
+                        </a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
 
-      const searchText = document.getElementById('searchInput').value.trim();
-      const brand = document.getElementById('brandFilter').value;
-      const city = document.getElementById('cityFilter').value;
-      const condition = document.getElementById('conditionFilter').value;
+        // تفعيل خانة البحث الفوري الذكي
+        document.getElementById('searchInput').addEventListener('input', (e) => {
+            const query = e.target.value.toLowerCase().trim();
+            if (!query) {
+                renderParts(allParts);
+                return;
+            }
 
-      try {
-        let query = db
-          .from('parts')
-          .select('*')
-          .eq('is_active', true)
-          .order('created_at', { ascending: false });
+            const filtered = allParts.filter(part => {
+                return (
+                    (part.name && part.name.toLowerCase().includes(query)) ||
+                    (part.brand && part.brand.toLowerCase().includes(query)) ||
+                    (part.model && part.model.toLowerCase().includes(query)) ||
+                    (part.city && part.city.toLowerCase().includes(query))
+                );
+            });
+            renderParts(filtered);
+        });
 
-        if (brand) query = query.eq('brand', brand);
-        if (city) query = query.eq('city', city);
-        if (condition) query = query.eq('condition', condition);
-        if (searchText) query = query.ilike('name', `%${searchText}%`);
-
-        const { data, error } = await query;
-
-        if (error) throw error;
-
-        allParts = data || [];
-        renderParts(allParts);
-        countEl.textContent = `${allParts.length} نتيجة`;
-
-      } catch (e) {
-        console.error('خطأ في البحث:', e);
-        grid.innerHTML = `
-          <div class="empty-state">
-            <div class="empty-icon">⚠️</div>
-            <p>في مشكلة في الاتصال</p>
-            <small>تحقق من الإنترنت وحاول مرة ثانية</small>
-          </div>`;
-        countEl.textContent = 'خطأ';
-      }
-    }
-
-    // ===== RENDER =====
-    function renderParts(parts) {
-      const grid = document.getElementById('partsGrid');
-
-      if (!parts.length) {
-        grid.innerHTML = `
-          <div class="empty-state">
-            <div class="empty-icon">🔍</div>
-            <p>ما لقيناش نتائج</p>
-            <small>جرب تغير الفلاتر أو ابحث بكلمة ثانية</small>
-          </div>`;
-        return;
-      }
-
-      grid.innerHTML = parts.map(part => `
-        <div class="part-card">
-          <div class="card-top">
-            <div class="card-title-group">
-              <div class="card-emoji">${part.emoji || '🔧'}</div>
-              <div>
-                <div class="card-name">${part.name}</div>
-                <div class="card-model">${part.brand}${part.model ? ' — ' + part.model : ''}</div>
-              </div>
-            </div>
-            <div class="badge-condition ${part.condition === 'جديد' ? 'badge-new' : 'badge-used'}">
-              ${part.condition === 'جديد' ? '🟢' : '🟠'} ${part.condition}
-            </div>
-          </div>
-
-          <div class="card-meta">
-            <div class="meta-item">
-              <span>📍</span>
-              <span>${part.city}</span>
-            </div>
-            <div class="meta-item">
-              <span>🏪</span>
-              <span>${part.contact_name || '—'}</span>
-            </div>
-            ${part.notes ? `<div class="meta-item"><span>📝</span><span>${part.notes}</span></div>` : ''}
-          </div>
-
-          <div class="card-bottom">
-            <div class="price-text">💰 ${part.price_text || 'السعر عند التواصل'}</div>
-            <a class="btn-whatsapp"
-               href="https://wa.me/${part.whatsapp}?text=${encodeURIComponent('السلام عليكم، شفت إعلان ' + part.name + ' على رادار ليبيا، هل لا زال متوفر؟')}"
-               target="_blank">
-              💬 واتساب
-            </a>
-          </div>
-        </div>
-      `).join('');
-    }
-
-    // ===== ENTER KEY =====
-    document.getElementById('searchInput').addEventListener('keypress', function(e) {
-      if (e.key === 'Enter') searchParts();
-    });
-
-    // ===== LIVE FILTERS =====
-    ['brandFilter', 'cityFilter', 'conditionFilter'].forEach(id => {
-      document.getElementById(id).addEventListener('change', searchParts);
-    });
-
-    // ===== INIT =====
-    loadAll();
-  </script>
+        // تشغيل الجلب التلقائي فور فتح الصفحة
+        window.addEventListener('DOMContentLoaded', fetchParts);
+    </script>
 </body>
-      </html>
+</html>
